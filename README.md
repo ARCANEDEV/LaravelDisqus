@@ -48,7 +48,7 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 [badge_build]:       https://img.shields.io/travis/ARCANEDEV/LaravelDisqus.svg?style=flat-square
 [badge_coverage]:    https://img.shields.io/scrutinizer/coverage/g/ARCANEDEV/LaravelDisqus.svg?style=flat-square
 [badge_quality]:     https://img.shields.io/scrutinizer/g/ARCANEDEV/LaravelDisqus.svg?style=flat-square
-[badge_insight]:     https://img.shields.io/sensiolabs/i/[id].svg?style=flat-square
+[badge_insight]:     https://img.shields.io/sensiolabs/i/289f3acd-776d-489e-afa0-bebd6691498b.svg?style=flat-square
 [badge_issues]:      https://img.shields.io/github/issues/ARCANEDEV/LaravelDisqus.svg?style=flat-square
 [badge_package]:     https://img.shields.io/badge/package-arcanedev/laravel--disqus-blue.svg?style=flat-square
 [badge_release]:     https://img.shields.io/packagist/v/arcanedev/laravel-disqus.svg?style=flat-square
@@ -61,4 +61,4 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 [link-packagist]:     https://packagist.org/packages/arcanedev/laravel-disqus
 [link-travis]:        https://travis-ci.org/ARCANEDEV/LaravelDisqus
 [link-scrutinizer]:   https://scrutinizer-ci.com/g/ARCANEDEV/LaravelDisqus/?branch=master
-[link-insight]:       https://insight.sensiolabs.com/projects/[id]
+[link-insight]:       https://insight.sensiolabs.com/projects/289f3acd-776d-489e-afa0-bebd6691498b
