@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\LaravelDisqus\Facades;
 
+use Arcanedev\LaravelDisqus\Contracts\Disqus as DisqusContract;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -15,8 +16,5 @@ class Disqus extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
-    {
-        return \Arcanedev\LaravelDisqus\Contracts\Disqus::class;
-    }
+    protected static function getFacadeAccessor() { return DisqusContract::class; }
 }
