@@ -12,13 +12,13 @@
 
 *By [ARCANEDEV&copy;](http://www.arcanedev.net/)*
 
-A small and *easy-to-use* Disqus package for Laravel and it comes with some goodies to make your life easier.
+A small and *easy-to-use* Disqus package for Larav@el and it comes with some goodies to make your life easier.
 
 Feel free to check out the [releases](https://github.com/ARCANEDEV/LaravelDisqus/releases), [license](LICENSE.md), and [contribution guidelines](CONTRIBUTING.md).
 
 ### Features
 
-  * Laravel `5.1 | 5.2 | 5.3` are Supported.
+  * Laravel `5.1 | 5.2 | 5.3 | 5.4` are Supported.
   * Easy setup & configuration.
   * Well tested (100% code coverage with maximum code quality).
   * Made with :heart: &amp; :coffee:.
