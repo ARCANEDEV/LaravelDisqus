@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\LaravelDisqus\Tests;
 
+use Arcanedev\LaravelDisqus\Http\Middleware\DisqusMiddleware;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 /**
@@ -73,14 +74,19 @@ abstract class TestCase extends BaseTestCase
      */
     private function registerRoutes($router)
     {
-        $router->aliasMiddleware('disqus', \Arcanedev\LaravelDisqus\Http\Middleware\DisqusMiddleware::class);
+        method_exists($router, 'aliasMiddleware')
+            ? $router->aliasMiddleware('disqus', DisqusMiddleware::class)
+            : $router->middleware('disqus', DisqusMiddleware::class);
 
-        $router->middleware(['disqus'])->get('/', function () {
-            return 'Homepage';
-        });
+        $router->group(['middleware' => 'disqus'], function ($router) {
+            /** @var  \Illuminate\Routing\Router  $router */
+            $router->get('/', function () {
+                return 'Homepage';
+            });
 
-        $router->middleware(['disqus'])->get('post-one', function () {
-            return 'Post one';
+            $router->get('post-one', function () {
+                return 'Post one';
+            });
         });
     }
 }
