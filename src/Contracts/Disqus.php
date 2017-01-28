@@ -13,6 +13,13 @@ interface Disqus
      | ------------------------------------------------------------------------------------------------
      */
     /**
+     * Get the disqus's username property.
+     *
+     * @return string
+     */
+    public function username();
+
+    /**
      * Set the disqus's username property.
      *
      * @param  string  $username
@@ -22,13 +29,11 @@ interface Disqus
     public function setUsername($username);
 
     /**
-     * Set the disqus's enabled property.
+     * Get the Page URL.
      *
-     * @param  bool  $enabled
-     *
-     * @return self
+     * @return string
      */
-    public function setEnabled($enabled);
+    public function pageUrl();
 
     /**
      * Set the page url.
@@ -40,6 +45,13 @@ interface Disqus
     public function setPageUrl($pageUrl);
 
     /**
+     * Get the Page ID.
+     *
+     * @return string
+     */
+    public function pageId();
+
+    /**
      * Set the Page ID.
      *
      * @param  string  $pageId
@@ -47,6 +59,31 @@ interface Disqus
      * @return self
      */
     public function setPageId($pageId);
+
+    /**
+     * Get the language.
+     *
+     * @return string
+     */
+    public function language();
+
+    /**
+     * Set the language.
+     *
+     * @param  string  $language
+     *
+     * @return self
+     */
+    public function setLanguage($language);
+
+    /**
+     * Set the disqus's enabled property.
+     *
+     * @param  bool  $enabled
+     *
+     * @return self
+     */
+    public function setEnabled($enabled);
 
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
@@ -72,6 +109,13 @@ interface Disqus
      * @return self
      */
     public function enable();
+
+    /**
+     * Disable Disqus.
+     *
+     * @return self
+     */
+    public function disable();
 
     /**
      * Check if Disqus is enabled.

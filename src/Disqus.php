@@ -1,6 +1,7 @@
 <?php namespace Arcanedev\LaravelDisqus;
 
 use Arcanedev\LaravelDisqus\Contracts\Disqus as DisqusContract;
+use Illuminate\Support\Arr;
 
 /**
  * Class     Disqus
@@ -29,6 +30,20 @@ class Disqus implements DisqusContract
     protected $pageUrl = '';
 
     /**
+     * The Page ID property.
+     *
+     * @var string
+     */
+    protected $pageId = '';
+
+    /**
+     * The Language property.
+     *
+     * @var string
+     */
+    protected $language;
+
+    /**
      * Disqus enabled status.
      *
      * @var bool
@@ -36,9 +51,34 @@ class Disqus implements DisqusContract
     protected $enabled = false;
 
     /* ------------------------------------------------------------------------------------------------
+     |  Constructor
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Disqus constructor.
+     *
+     * @param  array  $options
+     */
+    public function __construct(array $options = [])
+    {
+        $this->setUsername(Arr::get($options, 'username', ''))
+             ->setLanguage(Arr::get($options, 'language', null));
+    }
+
+    /* ------------------------------------------------------------------------------------------------
      |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
+    /**
+     * Get the disqus's username property.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return $this->username;
+    }
+
     /**
      * Set the disqus's username property.
      *
@@ -51,6 +91,16 @@ class Disqus implements DisqusContract
         $this->username = $username;
 
         return $this;
+    }
+
+    /**
+     * Get the Page URL.
+     *
+     * @return string
+     */
+    public function pageUrl()
+    {
+        return $this->pageUrl;
     }
 
     /**
@@ -68,6 +118,16 @@ class Disqus implements DisqusContract
     }
 
     /**
+     * Get the Page ID.
+     *
+     * @return string
+     */
+    public function pageId()
+    {
+        return $this->pageId;
+    }
+
+    /**
      * Set the Page ID.
      *
      * @param  string  $pageId
@@ -77,6 +137,30 @@ class Disqus implements DisqusContract
     public function setPageId($pageId)
     {
         $this->pageId = $pageId;
+
+        return $this;
+    }
+
+    /**
+     * Get the language.
+     *
+     * @return string
+     */
+    public function language()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Set the language.
+     *
+     * @param  string  $language
+     *
+     * @return self
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
 
         return $this;
     }
@@ -118,15 +202,9 @@ class Disqus implements DisqusContract
      */
     public function script()
     {
-        $content = '';
-
-        if ($this->isEnabled()) {
-            $content = view('laravel-disqus::script', [
-                'pageUrl'  => $this->pageUrl,
-                'pageId'   => '',
-                'username' => $this->username,
-            ])->render();
-        }
+        $content = $this->isEnabled()
+            ? view('laravel-disqus::script', $this->getScriptParams())->render()
+            : '';
 
         return $this->toHtml($content);
     }
@@ -175,5 +253,20 @@ class Disqus implements DisqusContract
     protected function toHtml($content)
     {
         return new \Illuminate\Support\HtmlString($content);
+    }
+
+    /**
+     * Get the script parameters.
+     *
+     * @return array
+     */
+    private function getScriptParams()
+    {
+        return [
+            'pageUrl'  => $this->pageUrl(),
+            'pageId'   => $this->pageId(),
+            'username' => $this->username(),
+            'language' => $this->language(),
+        ];
     }
 }
