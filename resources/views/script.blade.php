@@ -1,7 +1,14 @@
 <script>
     var disqus_config = function () {
+@if ($pageUrl)
         this.page.url = '{{ $pageUrl }}';
+@endif
+@if ($pageId)
         this.page.identifier = '{{ $pageId }}';
+@endif
+@if ($language)
+        this.language = '{{ $language }}';
+@endif
     };
     (function() {
         // DON'T EDIT BELOW THIS LINE
