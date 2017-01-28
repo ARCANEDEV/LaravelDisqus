@@ -50,14 +50,38 @@ class DisqusMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($this->disqus->isEnabled()) {
-            $pageUrl = $request->url();
-            $pageId  = 'base'.implode('.', explode('/', $request->getPathInfo()));
-
-            $this->disqus->setPageUrl($pageUrl)
-                         ->setPageId($pageId);
-        }
+        if ($this->disqus->isEnabled())
+            $this->handleDisqus($request);
 
         return $next($request);
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Handle Disqus.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    protected function handleDisqus($request)
+    {
+        $this->disqus->setPageUrl($request->url())
+                     ->setPageId($this->getPageId($request));
+    }
+
+    /**
+     * Get the page id.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return string
+     */
+    protected function getPageId($request)
+    {
+        $path = implode('.', explode('/', $request->getPathInfo()));
+
+        return 'base'.($path === '.' ? $path.'home' : $path);
     }
 }
