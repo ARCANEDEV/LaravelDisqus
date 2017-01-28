@@ -22,6 +22,13 @@ class LaravelDisqusServiceProvider extends PackageServiceProvider
      */
     protected $package = 'laravel-disqus';
 
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer   = true;
+
     /* ------------------------------------------------------------------------------------------------
      |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
@@ -50,10 +57,9 @@ class LaravelDisqusServiceProvider extends PackageServiceProvider
         $this->singleton(Contracts\Disqus::class, function ($app) {
             /** @var  \Illuminate\Contracts\Config\Repository  $config */
             $config = $app['config'];
-            $disqus = new Disqus;
+            $disqus = new Disqus($config->get('laravel-disqus.options', []));
 
-            $disqus->setEnabled($config->get('laravel-disqus.enabled', false))
-                   ->setUsername($config->get('laravel-disqus.username', ''));
+            $disqus->setEnabled($config->get('laravel-disqus.enabled', false));
 
             return $disqus;
         });
