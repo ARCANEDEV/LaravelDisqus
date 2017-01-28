@@ -20,23 +20,21 @@ class DisqusMiddlewareTest extends TestCase
         $disqus = disqus();
 
         // Disabled
-        $response = $this->get('/');
+        $this->get('/');
 
-        $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty($disqus->pageUrl());
         $this->assertEmpty($disqus->pageId());
 
         // Enabled
         $disqus->enable();
-        $response = $this->get('/');
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->get('/');
+
         $this->assertSame('http://localhost', $disqus->pageUrl());
         $this->assertSame('base.home', $disqus->pageId());
 
-        $response = $this->get('post-one');
+        $this->get('post-one');
 
-        $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('http://localhost/post-one', $disqus->pageUrl());
         $this->assertSame('base.post-one', $disqus->pageId());
     }
