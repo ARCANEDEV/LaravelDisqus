@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'enabled' => false,
 
     'options' => [
@@ -19,4 +20,5 @@ return [
     ],
 
     'middleware' => Arcanedev\LaravelDisqus\Http\Middleware\DisqusMiddleware::class,
+
 ];
