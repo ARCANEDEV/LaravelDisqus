@@ -8,17 +8,19 @@
  */
 class DisqusTest extends TestCase
 {
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Properties
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /** @var \Arcanedev\LaravelDisqus\Contracts\Disqus */
     protected $disqus;
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Main Methods
+     | -----------------------------------------------------------------
      */
+
     public function setUp()
     {
         parent::setUp();
@@ -33,10 +35,11 @@ class DisqusTest extends TestCase
         parent::tearDown();
     }
 
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Tests
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /** @test */
     public function it_can_be_instantiated()
     {
@@ -157,22 +160,7 @@ class DisqusTest extends TestCase
         $this->disqus->enable();
 
         $actual   = $this->disqus->script();
-        $expected = <<<CDATA
-<script>
-    var disqus_config = function () {
-    };
-    (function() {
-        // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-
-        s.src = '//.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\" rel=\"nofollow\">comments powered by Disqus.</a></noscript>
-
-CDATA;
+        $expected = file_get_contents(__DIR__ . '/fixtures/scripts/disqus-without-params.html');
 
         $this->assertSame($expected, $actual->toHtml());
         $this->assertSame($expected, (string) $actual);
@@ -183,24 +171,7 @@ CDATA;
         $this->disqus->setPageId($pageId = 'page-github-arcanedev');
 
         $actual   = $this->disqus->script();
-        $expected = <<<CDATA
-<script>
-    var disqus_config = function () {
-        this.page.url = '$pageUrl';
-        this.page.identifier = '$pageId';
-    };
-    (function() {
-        // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-
-        s.src = '//$username.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\" rel=\"nofollow\">comments powered by Disqus.</a></noscript>
-
-CDATA;
+        $expected = file_get_contents(__DIR__ . '/fixtures/scripts/disqus-with-params.html');
 
         $this->assertSame($expected, $actual->toHtml());
         $this->assertSame($expected, (string) $actual);
@@ -209,25 +180,7 @@ CDATA;
         $this->disqus->setLanguage($language = 'fr');
 
         $actual   = $this->disqus->script();
-        $expected = <<<CDATA
-<script>
-    var disqus_config = function () {
-        this.page.url = '$pageUrl';
-        this.page.identifier = '$pageId';
-        this.language = 'fr';
-    };
-    (function() {
-        // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-
-        s.src = '//$username.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\" rel=\"nofollow\">comments powered by Disqus.</a></noscript>
-
-CDATA;
+        $expected = file_get_contents(__DIR__ . '/fixtures/scripts/disqus-with-params-and-language.html');
 
         $this->assertSame($expected, $actual->toHtml());
         $this->assertSame($expected, (string) $actual);
