@@ -31,21 +31,6 @@ class LaravelDisqusServiceProvider extends PackageServiceProvider
     protected $defer = true;
 
     /* -----------------------------------------------------------------
-     |  Getters & Setters
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Get the base path of the package.
-     *
-     * @return string
-     */
-    public function getBasePath()
-    {
-        return dirname(__DIR__);
-    }
-
-    /* -----------------------------------------------------------------
      |  Main Methods
      | -----------------------------------------------------------------
      */
@@ -55,6 +40,8 @@ class LaravelDisqusServiceProvider extends PackageServiceProvider
      */
     public function register()
     {
+        parent::register();
+
         $this->registerConfig();
 
         $this->singleton(Contracts\Disqus::class, function ($app) {
@@ -73,6 +60,8 @@ class LaravelDisqusServiceProvider extends PackageServiceProvider
      */
     public function boot()
     {
+        parent::boot();
+
         $this->publishConfig();
         $this->publishViews();
 
