@@ -2,6 +2,7 @@
 
 use Arcanedev\LaravelDisqus\Contracts\Disqus as DisqusContract;
 use Illuminate\Support\Arr;
+use Illuminate\Support\HtmlString;
 
 /**
  * Class     Disqus
@@ -206,11 +207,11 @@ class Disqus implements DisqusContract
      */
     public function script()
     {
-        $content = $this->isEnabled()
-            ? view('laravel-disqus::script', $this->getScriptParams())->render()
-            : '';
-
-        return $this->toHtml($content);
+        return $this->toHtml(
+            $this->isEnabled()
+                ? view()->make('laravel-disqus::script', $this->getScriptParams())->render()
+                : ''
+        );
     }
 
     /**
@@ -257,7 +258,7 @@ class Disqus implements DisqusContract
      */
     protected function toHtml($content)
     {
-        return new \Illuminate\Support\HtmlString($content);
+        return new HtmlString($content);
     }
 
     /**

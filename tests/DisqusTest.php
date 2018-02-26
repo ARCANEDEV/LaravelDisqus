@@ -49,10 +49,10 @@ class DisqusTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->disqus);
+            static::assertInstanceOf($expected, $this->disqus);
         }
 
-        $this->assertFalse($this->disqus->isEnabled());
+        static::assertFalse($this->disqus->isEnabled());
     }
 
     /** @test */
@@ -66,64 +66,64 @@ class DisqusTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $disqus);
+            static::assertInstanceOf($expected, $disqus);
         }
 
-        $this->assertFalse($disqus->isEnabled());
+        static::assertFalse($disqus->isEnabled());
     }
 
     /** @test */
     public function it_can_be_enabled_and_disabled()
     {
-        $this->assertFalse($this->disqus->isEnabled());
+        static::assertFalse($this->disqus->isEnabled());
 
         $this->disqus->enable();
 
-        $this->assertTrue($this->disqus->isEnabled());
+        static::assertTrue($this->disqus->isEnabled());
 
         $this->disqus->disable();
 
-        $this->assertFalse($this->disqus->isEnabled());
+        static::assertFalse($this->disqus->isEnabled());
     }
 
     /** @test */
     public function it_can_set_and_get_username()
     {
-        $this->assertEmpty($this->disqus->username());
+        static::assertEmpty($this->disqus->username());
 
         $this->disqus->setUsername($username = 'ARCANEDEV');
 
-        $this->assertSame($username, $this->disqus->username());
+        static::assertSame($username, $this->disqus->username());
     }
 
     /** @test */
     public function it_can_set_and_get_language()
     {
-        $this->assertNull($this->disqus->language());
+        static::assertNull($this->disqus->language());
 
         $this->disqus->setLanguage($language = 'fr');
 
-        $this->assertSame($language, $this->disqus->language());
+        static::assertSame($language, $this->disqus->language());
     }
 
     /** @test */
     public function it_can_set_and_get_page_url()
     {
-        $this->assertEmpty($this->disqus->pageUrl());
+        static::assertEmpty($this->disqus->pageUrl());
 
         $this->disqus->setPageUrl($pageUrl = 'http://github.com/ARCANEDEV');
 
-        $this->assertSame($pageUrl, $this->disqus->pageUrl());
+        static::assertSame($pageUrl, $this->disqus->pageUrl());
     }
 
     /** @test */
     public function it_can_set_and_get_page_id()
     {
-        $this->assertEmpty($this->disqus->pageId());
+        static::assertEmpty($this->disqus->pageId());
 
         $this->disqus->setPageId($pageId = 'page-github-arcanedev');
 
-        $this->assertSame($pageId, $this->disqus->pageId());
+        static::assertSame($pageId, $this->disqus->pageId());
     }
 
     /** @test */
@@ -132,9 +132,9 @@ class DisqusTest extends TestCase
         // Disabled
         $actual = $this->disqus->render();
 
-        $this->assertInstanceOf(\Illuminate\Support\HtmlString::class, $actual);
-        $this->assertEmpty($actual->toHtml());
-        $this->assertEmpty((string) $actual);
+        static::assertInstanceOf(\Illuminate\Support\HtmlString::class, $actual);
+        static::assertEmpty($actual->toHtml());
+        static::assertEmpty((string) $actual);
 
         // Enabled
         $this->disqus->enable();
@@ -142,8 +142,8 @@ class DisqusTest extends TestCase
         $actual   = $this->disqus->render();
         $expected = '<div id="disqus_thread"></div>';
 
-        $this->assertSame($expected, $actual->toHtml());
-        $this->assertSame($expected, (string) $actual);
+        static::assertSame($expected, $actual->toHtml());
+        static::assertSame($expected, (string) $actual);
     }
 
     /** @test */
@@ -152,9 +152,9 @@ class DisqusTest extends TestCase
         // Disabled
         $actual = $this->disqus->script();
 
-        $this->assertInstanceOf(\Illuminate\Support\HtmlString::class, $actual);
-        $this->assertEmpty($actual->toHtml());
-        $this->assertEmpty((string) $actual);
+        static::assertInstanceOf(\Illuminate\Support\HtmlString::class, $actual);
+        static::assertEmpty($actual->toHtml());
+        static::assertEmpty((string) $actual);
 
         // Enabled
         $this->disqus->enable();
@@ -162,8 +162,8 @@ class DisqusTest extends TestCase
         $actual   = $this->disqus->script();
         $expected = file_get_contents(__DIR__ . '/fixtures/scripts/disqus-without-params.html');
 
-        $this->assertSame($expected, $actual->toHtml());
-        $this->assertSame($expected, (string) $actual);
+        static::assertSame($expected, $actual->toHtml());
+        static::assertSame($expected, (string) $actual);
 
         // With basic parameters
         $this->disqus->setUsername($username = 'ARCANEDEV');
@@ -173,8 +173,8 @@ class DisqusTest extends TestCase
         $actual   = $this->disqus->script();
         $expected = file_get_contents(__DIR__ . '/fixtures/scripts/disqus-with-params.html');
 
-        $this->assertSame($expected, $actual->toHtml());
-        $this->assertSame($expected, (string) $actual);
+        static::assertSame($expected, $actual->toHtml());
+        static::assertSame($expected, (string) $actual);
 
         // How about language ?
         $this->disqus->setLanguage($language = 'fr');
@@ -182,7 +182,7 @@ class DisqusTest extends TestCase
         $actual   = $this->disqus->script();
         $expected = file_get_contents(__DIR__ . '/fixtures/scripts/disqus-with-params-and-language.html');
 
-        $this->assertSame($expected, $actual->toHtml());
-        $this->assertSame($expected, (string) $actual);
+        static::assertSame($expected, $actual->toHtml());
+        static::assertSame($expected, (string) $actual);
     }
 }
