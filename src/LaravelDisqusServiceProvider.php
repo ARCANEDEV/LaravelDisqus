@@ -47,11 +47,10 @@ class LaravelDisqusServiceProvider extends PackageServiceProvider
         $this->singleton(Contracts\Disqus::class, function ($app) {
             /** @var  \Illuminate\Contracts\Config\Repository  $config */
             $config = $app['config'];
-            $disqus = new Disqus($config->get('laravel-disqus.options', []));
 
-            $disqus->setEnabled($config->get('laravel-disqus.enabled', false));
-
-            return $disqus;
+            return tap(new Disqus($config->get('laravel-disqus.options', [])), function (Contracts\Disqus $disqus) use ($config) {
+                $disqus->setEnabled($config->get('laravel-disqus.enabled', false));
+            });
         });
     }
 

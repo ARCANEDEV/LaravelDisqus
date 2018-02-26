@@ -10,10 +10,11 @@ use Arcanedev\LaravelDisqus\Tests\TestCase;
  */
 class DisqusMiddlewareTest extends TestCase
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Test Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Tests
+     | -----------------------------------------------------------------
      */
+
     /** @test */
     public function it_can_set_page_url_and_page_id_via_middleware()
     {
@@ -22,20 +23,20 @@ class DisqusMiddlewareTest extends TestCase
         // Disabled
         $this->get('/');
 
-        $this->assertEmpty($disqus->pageUrl());
-        $this->assertEmpty($disqus->pageId());
+        static::assertEmpty($disqus->pageUrl());
+        static::assertEmpty($disqus->pageId());
 
         // Enabled
         $disqus->enable();
 
         $this->get('/');
 
-        $this->assertSame('http://localhost', $disqus->pageUrl());
-        $this->assertSame('base.home', $disqus->pageId());
+        static::assertSame('http://localhost', $disqus->pageUrl());
+        static::assertSame('base.home', $disqus->pageId());
 
         $this->get('post-one');
 
-        $this->assertSame('http://localhost/post-one', $disqus->pageUrl());
-        $this->assertSame('base.post-one', $disqus->pageId());
+        static::assertSame('http://localhost/post-one', $disqus->pageUrl());
+        static::assertSame('base.post-one', $disqus->pageId());
     }
 }

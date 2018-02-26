@@ -51,7 +51,7 @@ class LaravelDisqusServiceProviderTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->provider);
+            static::assertInstanceOf($expected, $this->provider);
         }
     }
 
@@ -62,6 +62,6 @@ class LaravelDisqusServiceProviderTest extends TestCase
             \Arcanedev\LaravelDisqus\Contracts\Disqus::class,
         ];
 
-        $this->assertSame($expected, $this->provider->provides());
+        static::assertSame($expected, $this->provider->provides());
     }
 }

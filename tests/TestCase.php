@@ -76,9 +76,7 @@ abstract class TestCase extends BaseTestCase
      */
     private function registerRoutes($router)
     {
-        method_exists($router, 'aliasMiddleware')
-            ? $router->aliasMiddleware('disqus', DisqusMiddleware::class)
-            : $router->middleware('disqus', DisqusMiddleware::class);
+        $router->aliasMiddleware('disqus', DisqusMiddleware::class);
 
         $router->group(['middleware' => 'disqus'], function ($router) {
             /** @var  \Illuminate\Routing\Router  $router */
